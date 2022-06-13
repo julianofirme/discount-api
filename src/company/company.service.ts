@@ -1,11 +1,41 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import * as bcrypt from 'bcryptjs';
+import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateCompanyDto } from './dto/create-company.dto';
 import { UpdateCompanyDto } from './dto/update-company.dto';
 
 @Injectable()
 export class CompanyService {
-  create(createCompanyDto: CreateCompanyDto) {
-    return 'This action adds a new company';
+  constructor(private readonly prisma: PrismaService) {}
+
+  async create(createCompanyDto: CreateCompanyDto) {
+    const company = await this.prisma.company.findFirst({
+      where: {
+        OR: [
+          {
+            email: createCompanyDto.email,
+          },
+          {
+            document: createCompanyDto.document,
+          },
+        ],
+      },
+    });
+
+    if (company)
+      throw new HttpException(
+        'Uma empresa com o mesmo email ou CNPJ já está cadastrada',
+      );
+
+    const password = createCompanyDto.password
+      ? await bcrypt.hash(createCompanyDto.password, 8)
+      : undefined;
+    return this.prisma.company.create({
+      data: {
+        ...createCompanyDto,
+        password,
+      },
+    });
   }
 
   findAll() {
