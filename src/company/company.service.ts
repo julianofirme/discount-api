@@ -22,14 +22,17 @@ export class CompanyService {
       },
     });
 
-    if (company)
+    if (company) {
       throw new HttpException(
         'Uma empresa com o mesmo email ou CNPJ já está cadastrada',
+        HttpStatus.BAD_REQUEST,
       );
+    }
 
     const password = createCompanyDto.password
       ? await bcrypt.hash(createCompanyDto.password, 8)
       : undefined;
+
     return this.prisma.company.create({
       data: {
         ...createCompanyDto,
@@ -39,7 +42,7 @@ export class CompanyService {
   }
 
   findAll() {
-    return `This action returns all company`;
+    return this.prisma.company.findMany();
   }
 
   findOne(id: number) {
