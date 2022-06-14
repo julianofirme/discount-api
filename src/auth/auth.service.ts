@@ -5,6 +5,7 @@ import { Company } from 'src/company/entities/company.entity';
 import { CompanyPayload } from './models/CompanyPayload';
 import { JwtService } from '@nestjs/jwt';
 import { CompanyToken } from './models/CompanyToken';
+import { CreateCompanyDto } from 'src/company/dto/create-company.dto';
 
 @Injectable()
 export class AuthService {
@@ -42,5 +43,13 @@ export class AuthService {
     return {
       acess_token: jwtToken,
     };
+  }
+
+  async register(createCompanyDto: CreateCompanyDto) {
+    const company = await this.companyService.create({
+      ...createCompanyDto,
+    });
+
+    return company;
   }
 }
