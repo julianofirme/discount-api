@@ -45,8 +45,12 @@ export class CompanyService {
     return this.prisma.company.findMany();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} company`;
+  findByEmail(email: string) {
+    return this.prisma.company.findUnique({
+      where: {
+        email,
+      },
+    });
   }
 
   update(id: number, updateCompanyDto: UpdateCompanyDto) {
