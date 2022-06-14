@@ -1,12 +1,19 @@
 import { Injectable } from '@nestjs/common';
 import { CompanyService } from 'src/company/company.service';
 import * as bcrypt from 'bcryptjs';
+import { Company } from 'src/company/entities/company.entity';
+import { CompanyPayload } from './models/CompanyPayload';
+import { JwtService } from '@nestjs/jwt';
+import { CompanyToken } from './models/CompanyToken';
 
 @Injectable()
 export class AuthService {
-  constructor(private readonly companyService: CompanyService) {}
+  constructor(
+    private readonly companyService: CompanyService,
+    private readonly jwtService: JwtService,
+  ) {}
 
-  async validateUser(email: string, password: string) {
+  async validateCompany(email: string, password: string) {
     const company = await this.companyService.findByEmail(email);
 
     if (company) {
@@ -23,7 +30,17 @@ export class AuthService {
     }
   }
 
-  async login() {
-    return 'login';
+  async login(company: Company): Promise<CompanyToken> {
+    const payload: CompanyPayload = {
+      sub: company.uuid,
+      email: company.email,
+      name: company.name,
+    };
+
+    const jwtToken = this.jwtService.sign(payload);
+
+    return {
+      acess_token: jwtToken,
+    };
   }
 }
