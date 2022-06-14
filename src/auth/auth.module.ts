@@ -5,6 +5,7 @@ import { LocalStrategy } from './strategies/local.strategy';
 import { CompanyModule } from 'src/company/company.module';
 import { JwtModule } from '@nestjs/jwt';
 import { config } from 'dotenv';
+import { JwtStrategy } from './strategies/jwt.strategy';
 
 config();
 @Module({
@@ -17,7 +18,7 @@ config();
       },
     }),
   ],
-  providers: [AuthService, LocalStrategy],
+  providers: [AuthService, LocalStrategy, JwtStrategy],
   controllers: [AuthController],
 })
 export class AuthModule {}
