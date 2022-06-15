@@ -9,7 +9,7 @@ import {
   MinLength,
   Validate,
 } from 'class-validator';
-import { DocumentValidation } from 'src/validations/document';
+import { DocumentValidation } from 'src/common/validations/document';
 
 export class CreateCompanyDto {
   @IsUUID()
