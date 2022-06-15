@@ -8,27 +8,54 @@ export class ProductService {
   constructor(private readonly prisma: PrismaService) {}
 
   async create(createProductDto: CreateProductDto, company_uuid: string) {
-    return this.prisma.product.create({
+    const product = await this.prisma.product.create({
       data: {
         ...createProductDto,
         company_uuid,
       },
     });
+
+    return product;
   }
 
   findAll() {
-    return `This action returns all product`;
+    return this.prisma.product.findMany();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} product`;
+  findOne(uuid: string) {
+    return this.prisma.product.findUnique({
+      where: { uuid },
+    });
   }
 
-  update(id: number, updateProductDto: UpdateProductDto) {
-    return `This action updates a #${id} product`;
+  async update(uuid: string, updateProductDto: UpdateProductDto) {
+    const existent_product = await this.prisma.product.findFirst({
+      where: { uuid },
+    });
+
+    if (!existent_product)
+      throw new HttpException('Product not found', HttpStatus.NOT_FOUND);
+
+    const product = await this.prisma.product.update({
+      where: { uuid },
+      data: updateProductDto,
+    });
+
+    return product;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} product`;
+  async remove(uuid: string) {
+    const existent_product = await this.prisma.product.findFirst({
+      where: { uuid },
+    });
+
+    if (!existent_product)
+      throw new HttpException('Product not found', HttpStatus.NOT_FOUND);
+
+    const product = await this.prisma.product.delete({
+      where: { uuid },
+    });
+
+    return product;
   }
 }
