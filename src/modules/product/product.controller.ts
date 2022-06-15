@@ -11,7 +11,7 @@ import {
 import { ProductService } from './product.service';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
-import { UserRequest } from 'src/auth/models/UserRequest';
+import { UserRequest } from '../auth/models/UserRequest';
 
 @Controller('product')
 export class ProductController {

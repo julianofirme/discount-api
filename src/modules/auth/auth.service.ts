@@ -1,11 +1,11 @@
 import { Injectable } from '@nestjs/common';
-import { CompanyService } from 'src/company/company.service';
+import { CompanyService } from '../company/company.service';
 import * as bcrypt from 'bcryptjs';
-import { Company } from 'src/company/entities/company.entity';
+import { Company } from '../company/entities/company.entity';
 import { CompanyPayload } from './models/CompanyPayload';
 import { JwtService } from '@nestjs/jwt';
 import { CompanyToken } from './models/CompanyToken';
-import { CreateCompanyDto } from 'src/company/dto/create-company.dto';
+import { CreateCompanyDto } from '../company/dto/create-company.dto';
 
 @Injectable()
 export class AuthService {

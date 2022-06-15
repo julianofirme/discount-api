@@ -7,7 +7,7 @@ import {
   Request,
   UseGuards,
 } from '@nestjs/common';
-import { CreateCompanyDto } from 'src/company/dto/create-company.dto';
+import { CreateCompanyDto } from '../company/dto/create-company.dto';
 import { AuthService } from './auth.service';
 import { IsPublic } from './decorators/is-public.decorator';
 import { LocalAuthGuard } from './guards/local-auth.guard';
