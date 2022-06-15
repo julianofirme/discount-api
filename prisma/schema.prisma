@@ -26,5 +26,23 @@ model Company {
   district   String?
   complement String?
 
+  created_at DateTime  @default(now())
+  updated_at DateTime  @default(now())
+  Product    Product[]
+}
+
+model Product {
+  uuid        String  @id @default(uuid())
+  name        String
+  description String
+  value       Int
+  quantity    Int
+  logo        String?
+
+
+  company_uuid String
+  company      Company @relation(fields: [company_uuid], references: [uuid])
+
   created_at DateTime @default(now())
+  updated_at DateTime  @default(now())
 }

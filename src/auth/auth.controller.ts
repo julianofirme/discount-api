@@ -11,7 +11,7 @@ import { CreateCompanyDto } from 'src/company/dto/create-company.dto';
 import { AuthService } from './auth.service';
 import { IsPublic } from './decorators/is-public.decorator';
 import { LocalAuthGuard } from './guards/local-auth.guard';
-import { AuthRequest } from './models/AuthRequest';
+import { UserRequest } from './models/UserRequest';
 
 @Controller()
 export class AuthController {
@@ -21,7 +21,7 @@ export class AuthController {
   @Post('login')
   @HttpCode(HttpStatus.OK)
   @UseGuards(LocalAuthGuard)
-  login(@Request() req: AuthRequest) {
+  login(@Request() req: UserRequest) {
     return this.authService.login(req.user);
   }
 
