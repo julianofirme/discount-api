@@ -47,17 +47,38 @@ export class CompanyService {
 
   findByEmail(email: string) {
     return this.prisma.company.findUnique({
-      where: {
-        email,
-      },
+      where: { email },
     });
   }
 
-  update(id: number, updateCompanyDto: UpdateCompanyDto) {
-    return `This action updates a #${id} company`;
+  async update(uuid: string, updateCompanyDto: UpdateCompanyDto) {
+    const existent_company = await this.prisma.company.findFirst({
+      where: { uuid },
+    });
+
+    if (!existent_company)
+      throw new HttpException('Company not found', HttpStatus.NOT_FOUND);
+
+    const company = await this.prisma.company.update({
+      where: { uuid },
+      data: updateCompanyDto,
+    });
+
+    return company;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} company`;
+  async remove(uuid: string) {
+    const existent_company = await this.prisma.company.findFirst({
+      where: { uuid },
+    });
+
+    if (!existent_company)
+      throw new HttpException('Company not found', HttpStatus.NOT_FOUND);
+
+    const company = await this.prisma.company.delete({
+      where: { uuid },
+    });
+
+    return company;
   }
 }
