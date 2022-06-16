@@ -6,6 +6,9 @@ export class Company {
   document: string;
   logo?: string;
 
+  recovery_code?: string;
+  recovery_date?: Date;
+
   zipcode?: string;
   state?: string;
   city?: string;
