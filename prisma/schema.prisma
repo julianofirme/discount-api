@@ -11,24 +11,27 @@ datasource db {
 }
 
 model Company {
-  uuid     String  @id @default(uuid())
-  name     String
-  email    String  @unique
-  password String
-  document String  @unique
-  logo     String?
+  uuid          String  @id @default(uuid())
+  name          String
+  email         String  @unique
+  password      String
+  document      String  @unique
+  logo          String?
 
-  zipcode    String?
-  state      String?
-  city       String?
-  street     String?
-  number     String?
-  district   String?
-  complement String?
+  recovery_code String?
+  recovery_date DateTime @default(now())
 
-  created_at DateTime  @default(now())
-  updated_at DateTime  @default(now())
-  Product    Product[]
+  zipcode       String?
+  state         String?
+  city          String?
+  street        String?
+  number        String?
+  district      String?
+  complement    String?
+
+  created_at    DateTime  @default(now())
+  updated_at    DateTime  @default(now())
+  Product       Product[]
 }
 
 model Product {

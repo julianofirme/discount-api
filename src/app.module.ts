@@ -7,9 +7,21 @@ import { CompanyModule } from './modules/company/company.module';
 import { APP_GUARD } from '@nestjs/core';
 import { JwtAuthGuard } from './modules/auth/guards/jwt-auth.guard';
 import { ProductModule } from './modules/product/product.module';
+import { EmailModule } from './modules/email/email.module';
+import { ConfigModule as NestConfigModule } from '@nestjs/config';
+import smtpConfig from './config/smtp.config';
 
 @Module({
-  imports: [AuthModule, PrismaModule, CompanyModule, ProductModule],
+  imports: [
+    AuthModule,
+    PrismaModule,
+    CompanyModule,
+    ProductModule,
+    EmailModule,
+    NestConfigModule.forRoot({
+      load: [smtpConfig],
+    }),
+  ],
   controllers: [AppController],
   providers: [AppService, { provide: APP_GUARD, useClass: JwtAuthGuard }],
 })
