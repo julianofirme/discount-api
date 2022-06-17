@@ -41,6 +41,7 @@ export class AuthController {
     return this.authService.register(createCompanyDto);
   }
 
+  @IsPublic()
   @Post('/reset-password')
   async sendRecoveryEmail(@Body() recoveryDto: RecoveryDto) {
     const company = await this.prisma.company.findFirst({
@@ -51,14 +52,14 @@ export class AuthController {
       throw new HttpException('Conta não encontrada!', HttpStatus.BAD_REQUEST);
     }
 
-    if (
-      company.recovery_date &&
-      moment().diff(company.recovery_date, 'minute') < 5
-    )
-      throw new HttpException(
-        'Um email de recuperação foi enviado a menos de 5 minutos, por favor tente novamente mais tarde!',
-        HttpStatus.BAD_REQUEST,
-      );
+    // if (
+    //   company.recovery_date &&
+    //   moment().diff(company.recovery_date, 'minute') < 5
+    // )
+    //   throw new HttpException(
+    //     'Um email de recuperação foi enviado a menos de 5 minutos, por favor tente novamente mais tarde!',
+    //     HttpStatus.BAD_REQUEST,
+    //   );
 
     const isSuccess = await this.authService.sendRecoveryEmail(company);
 
@@ -70,6 +71,7 @@ export class AuthController {
     );
   }
 
+  @IsPublic()
   @Post('/reset-password/verify-code')
   async verifyCode(@Body() resetPasswordDto: ResetPasswordDto) {
     const company = await this.prisma.company.findFirst({

@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { CompanyService } from '../company/company.service';
 import * as bcrypt from 'bcryptjs';
+import * as crypto from 'crypto';
 import { Company } from '../company/entities/company.entity';
 import { CompanyPayload } from './models/CompanyPayload';
 import { JwtService } from '@nestjs/jwt';

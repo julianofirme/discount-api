@@ -12,6 +12,7 @@ export class EmailService {
   constructor(private configService: ConfigService) {
     const body = configService.smtpConfig;
     this.transporter = nodemailer.createTransport(body);
+    console.log('🚀 ~ body', body);
   }
 
   async sendEmail(params: {
