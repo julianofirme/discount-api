@@ -158,7 +158,7 @@ export const recoveryPasswordEmailBody = (first_name: string, url: string) => {
                   >
                     <a href="https://www.Sconto.com.br">
                       <img
-                        src="https://www.Sconto.com.br/images/logo.svg"
+                        src="https://www.kadencewp.com/wp-content/uploads/2020/10/alogo-2.png"
                         width="155"
                         alt="Sconto"
                         style="
@@ -257,7 +257,7 @@ export const recoveryPasswordEmailBody = (first_name: string, url: string) => {
                                 style="
                                   mso-padding-alt: 16px 24px;
                                   --bg-opacity: 1;
-                                  background-color: #7367f0;
+                                  background-color: #42be98;
                                   border-radius: 4px;
                                   font-family: Montserrat, -apple-system,
                                     'Segoe UI', sans-serif;
