@@ -6,7 +6,9 @@ import {
   Param,
   Patch,
   Post,
+  Req,
 } from '@nestjs/common';
+import { UserRequest } from '../auth/models/UserRequest';
 import { CompanyService } from './company.service';
 import { CreateCompanyDto } from './dto/create-company.dto';
 import { UpdateCompanyDto } from './dto/update-company.dto';
@@ -23,6 +25,11 @@ export class CompanyController {
   @Get()
   findAll() {
     return this.companyService.findAll();
+  }
+
+  @Get('/products')
+  products(@Req() req: UserRequest) {
+    return this.companyService.findProducts(req.user.uuid);
   }
 
   @Patch(':uuid')

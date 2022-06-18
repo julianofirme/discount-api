@@ -1,6 +1,7 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import * as bcrypt from 'bcryptjs';
 import { PrismaService } from 'src/prisma/prisma.service';
+import { uuid } from 'uuidv4';
 import { CreateCompanyDto } from './dto/create-company.dto';
 import { UpdateCompanyDto } from './dto/update-company.dto';
 
@@ -36,6 +37,7 @@ export class CompanyService {
     return this.prisma.company.create({
       data: {
         ...createCompanyDto,
+        uuid: uuid(),
         password,
       },
     });
@@ -43,6 +45,14 @@ export class CompanyService {
 
   findAll() {
     return this.prisma.company.findMany();
+  }
+
+  findProducts(uuid: string) {
+    return this.prisma.product.findMany({
+      where: {
+        company_uuid: uuid,
+      },
+    });
   }
 
   findByEmail(email: string) {

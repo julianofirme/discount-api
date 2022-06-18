@@ -3,7 +3,6 @@ import {
   IsOptional,
   IsPostalCode,
   IsString,
-  IsUUID,
   Matches,
   MaxLength,
   MinLength,
@@ -12,9 +11,6 @@ import {
 import { DocumentValidation } from 'src/common/validations/document';
 
 export class CreateCompanyDto {
-  @IsUUID()
-  uuid: string;
-
   @IsString()
   name: string;
 

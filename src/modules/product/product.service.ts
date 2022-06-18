@@ -1,3 +1,4 @@
+import { uuid } from 'uuidv4';
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateProductDto } from './dto/create-product.dto';
@@ -11,6 +12,7 @@ export class ProductService {
     const product = await this.prisma.product.create({
       data: {
         ...createProductDto,
+        uuid: uuid(),
         company_uuid,
       },
     });
