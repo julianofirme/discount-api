@@ -42,7 +42,7 @@ export class AuthController {
   }
 
   @IsPublic()
-  @Post('/reset-password')
+  @Post('reset-password')
   async sendRecoveryEmail(@Body() recoveryDto: RecoveryDto) {
     const company = await this.prisma.company.findFirst({
       where: { email: recoveryDto.email },
@@ -72,7 +72,7 @@ export class AuthController {
   }
 
   @IsPublic()
-  @Post('/reset-password/verify-code')
+  @Post('reset-password/verify-code')
   async verifyCode(@Body() resetPasswordDto: ResetPasswordDto) {
     const company = await this.prisma.company.findFirst({
       where: { email: resetPasswordDto.email },
