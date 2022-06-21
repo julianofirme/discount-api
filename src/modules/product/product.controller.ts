@@ -32,6 +32,11 @@ export class ProductController {
     return this.productService.findOne(uuid);
   }
 
+  @Get(':uuid/claim')
+  claim(@Param('uuid') uuid: string) {
+    return this.productService.claimProduct(uuid);
+  }
+
   @Patch(':uuid')
   update(
     @Param('uuid') uuid: string,

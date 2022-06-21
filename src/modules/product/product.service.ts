@@ -30,6 +30,26 @@ export class ProductService {
     });
   }
 
+  async claimProduct(uuid: string) {
+    const existent_product = await this.prisma.product.findFirst({
+      where: { uuid },
+    });
+
+    if (existent_product.quantity < 1)
+      throw new HttpException('Product is not in stock ', HttpStatus.NOT_FOUND);
+
+    const product = await this.prisma.product.update({
+      where: { uuid },
+      data: {
+        quantity: {
+          decrement: 1,
+        },
+      },
+    });
+
+    return product;
+  }
+
   async update(uuid: string, updateProductDto: UpdateProductDto) {
     const existent_product = await this.prisma.product.findFirst({
       where: { uuid },
