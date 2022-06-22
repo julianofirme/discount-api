@@ -38,7 +38,8 @@ export class AuthService {
     }
   }
 
-  async login(company: Company): Promise<CompanyToken> {
+  // Company
+  async loginCompany(company: Company): Promise<CompanyToken> {
     const payload: CompanyPayload = {
       sub: company.uuid,
       email: company.email,
@@ -52,7 +53,30 @@ export class AuthService {
     };
   }
 
-  async register(createCompanyDto: CreateCompanyDto) {
+  async registerCompany(createCompanyDto: CreateCompanyDto) {
+    const company = await this.companyService.create({
+      ...createCompanyDto,
+    });
+
+    return company;
+  }
+
+  // Customer
+  async loginCustomer(company: Company): Promise<CompanyToken> {
+    const payload: CompanyPayload = {
+      sub: company.uuid,
+      email: company.email,
+      name: company.name,
+    };
+
+    const jwtToken = this.jwtService.sign(payload);
+
+    return {
+      acess_token: jwtToken,
+    };
+  }
+
+  async registerCustomer(createCompanyDto: CreateCompanyDto) {
     const company = await this.companyService.create({
       ...createCompanyDto,
     });

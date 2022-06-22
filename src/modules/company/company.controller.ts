@@ -27,6 +27,11 @@ export class CompanyController {
     return this.companyService.findAll();
   }
 
+  @Get(':uuid')
+  findOne(@Param('uuid') uuid: string) {
+    return this.companyService.findOne(uuid);
+  }
+
   @Get('/products')
   products(@Req() req: UserRequest) {
     return this.companyService.findProducts(req.user.uuid);

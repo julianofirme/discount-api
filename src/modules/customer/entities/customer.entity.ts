@@ -1,13 +1,12 @@
-import { Type } from '@nestjs/common';
+import { Type } from '@prisma/client';
 
-export class Company {
-  uuid: string;
+export class Customer {
   name: string;
   email: string;
   password: string;
   document: string;
   type: Type;
-  logo?: string;
+  profile_pic: string;
 
   recovery_code?: string;
   recovery_date?: Date;

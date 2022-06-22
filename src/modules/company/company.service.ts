@@ -47,6 +47,12 @@ export class CompanyService {
     return this.prisma.company.findMany();
   }
 
+  findOne(uuid: string) {
+    return this.prisma.customer.findUnique({
+      where: { uuid },
+    });
+  }
+
   findProducts(uuid: string) {
     return this.prisma.product.findMany({
       where: {

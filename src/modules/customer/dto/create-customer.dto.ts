@@ -15,23 +15,23 @@ import {
 } from 'class-validator';
 import { DocumentValidation } from 'src/common/validations/document';
 
-export class CreateCompanyDto {
+export class CreateCustomerDto {
   @ApiProperty({
-    description: 'Company name will be displayed in profile data.',
+    description: 'Customer name will be displayed in profile data.',
     example: 'Supermercado Logi',
   })
   @IsString()
   name: string;
 
   @ApiProperty({
-    description: 'Company email will be used to made login.',
+    description: 'Customer email will be used to made login.',
     example: 'logi@mail.com',
   })
   @IsEmail()
   email: string;
 
   @ApiProperty({
-    description: 'Company name will be displayed in profile data',
+    description: 'Customer name will be displayed in profile data',
     example: 'Logi134',
   })
   @IsString()
@@ -43,8 +43,8 @@ export class CreateCompanyDto {
   password: string;
 
   @ApiProperty({
-    description: 'Company document is the CNPJ or CPF account',
-    example: '12.345.678/0000-12',
+    description: 'Customer document is the CPF account',
+    example: '123.456.789-00',
   })
   @IsString()
   @Validate(DocumentValidation)
@@ -55,10 +55,10 @@ export class CreateCompanyDto {
 
   @IsString()
   @IsUrl()
-  logo: string;
+  profile_pic: string;
 
   @ApiProperty({
-    description: 'Company address data',
+    description: 'Customer address data',
     example: '45608-604',
   })
   @IsPostalCode('BR')
@@ -66,7 +66,7 @@ export class CreateCompanyDto {
   zipcode?: string;
 
   @ApiProperty({
-    description: 'Company address data',
+    description: 'Customer address data',
     example: 'SP',
   })
   @IsString()
@@ -74,7 +74,7 @@ export class CreateCompanyDto {
   state?: string;
 
   @ApiProperty({
-    description: 'Company address data',
+    description: 'Customer address data',
     example: 'São Paulo',
   })
   @IsString()
@@ -82,7 +82,7 @@ export class CreateCompanyDto {
   city?: string;
 
   @ApiProperty({
-    description: 'Company address data',
+    description: 'Customer address data',
     example: 'Avenida Padre Lourenço',
   })
   @IsString()
@@ -90,7 +90,7 @@ export class CreateCompanyDto {
   street?: string;
 
   @ApiProperty({
-    description: 'Company address data',
+    description: 'Customer address data',
     example: '4322',
   })
   @IsString()
@@ -100,7 +100,7 @@ export class CreateCompanyDto {
   number?: string;
 
   @ApiProperty({
-    description: 'Company address data',
+    description: 'Customer address data',
     example: 'Vila Dalila',
   })
   @IsString()
@@ -108,7 +108,7 @@ export class CreateCompanyDto {
   district?: string;
 
   @ApiProperty({
-    description: 'Company address data',
+    description: 'Customer address data',
     example: '',
   })
   @IsString()

@@ -16,6 +16,7 @@ model Company {
   email         String  @unique
   password      String
   document      String  @unique
+  type          Type
   logo          String?
 
   recovery_code String?
@@ -34,6 +35,30 @@ model Company {
   Product       Product[]
 }
 
+model Customer {
+  uuid          String  @id @default(uuid())
+  name          String
+  email         String  @unique
+  password      String
+  document      String  @unique
+  type          Type
+  profile_pic   String?
+
+  recovery_code String?
+  recovery_date DateTime @default(now())
+
+  zipcode       String?
+  state         String?
+  city          String?
+  street        String?
+  number        String?
+  district      String?
+  complement    String?
+
+  created_at    DateTime  @default(now())
+  updated_at    DateTime  @default(now())
+}
+
 model Product {
   uuid        String  @id @default(uuid())
   name        String
@@ -48,4 +73,9 @@ model Product {
 
   created_at DateTime @default(now())
   updated_at DateTime  @default(now())
+}
+
+enum Type {
+  COMPANY
+  CUSTOMER
 }

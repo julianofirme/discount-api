@@ -27,18 +27,33 @@ export class AuthController {
   ) {}
 
   @IsPublic()
-  @Post('login')
+  @Post('login/company')
   @HttpCode(HttpStatus.OK)
   @UseGuards(LocalAuthGuard)
-  login(@Request() req: UserRequest) {
-    return this.authService.login(req.user);
+  loginCompany(@Request() req: UserRequest) {
+    return this.authService.loginCompany(req.user);
   }
 
   @IsPublic()
-  @Post('register')
+  @Post('register/company')
+  @HttpCode(HttpStatus.OK)
+  registerCompany(@Body() createCompanyDto: CreateCompanyDto) {
+    return this.authService.registerCompany(createCompanyDto);
+  }
+
+  @IsPublic()
+  @Post('login/customer')
+  @HttpCode(HttpStatus.OK)
+  @UseGuards(LocalAuthGuard)
+  login(@Request() req: UserRequest) {
+    return this.authService.loginCustomer(req.user);
+  }
+
+  @IsPublic()
+  @Post('register/customer')
   @HttpCode(HttpStatus.OK)
   register(@Body() createCompanyDto: CreateCompanyDto) {
-    return this.authService.register(createCompanyDto);
+    return this.authService.registerCustomer(createCompanyDto);
   }
 
   @IsPublic()
@@ -96,6 +111,6 @@ export class AuthController {
       },
     });
 
-    return this.authService.login(company);
+    return this.authService.loginCompany(company);
   }
 }

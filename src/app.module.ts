@@ -9,6 +9,7 @@ import { JwtAuthGuard } from './modules/auth/guards/jwt-auth.guard';
 import { ProductModule } from './modules/product/product.module';
 import { EmailModule } from './modules/email/email.module';
 import { ConfigModule as NestConfigModule } from '@nestjs/config';
+import { CustomerModule } from './modules/customer/customer.module';
 import smtpConfig from './config/smtp.config';
 
 @Module({
@@ -21,6 +22,7 @@ import smtpConfig from './config/smtp.config';
     NestConfigModule.forRoot({
       load: [smtpConfig],
     }),
+    CustomerModule,
   ],
   controllers: [AppController],
   providers: [AppService, { provide: APP_GUARD, useClass: JwtAuthGuard }],
