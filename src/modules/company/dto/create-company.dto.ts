@@ -1,7 +1,9 @@
 import { ApiProperty } from '@nestjs/swagger';
 import {
   IsEmail,
+  IsInt,
   IsOptional,
+  IsPositive,
   IsPostalCode,
   IsString,
   Matches,
@@ -84,6 +86,8 @@ export class CreateCompanyDto {
   })
   @IsString()
   @IsOptional()
+  @IsInt()
+  @IsPositive()
   number?: string;
 
   @ApiProperty({
