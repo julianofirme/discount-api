@@ -1,12 +1,13 @@
 import { Type } from '@prisma/client';
 
 export class Customer {
+  uuid: string;
   name: string;
   email: string;
   password: string;
   document: string;
   type: Type;
-  profile_pic: string;
+  profile_pic?: string;
 
   recovery_code?: string;
   recovery_date?: Date;

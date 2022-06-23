@@ -8,7 +8,7 @@ import {
   Post,
   Req,
 } from '@nestjs/common';
-import { UserRequest } from '../auth/models/UserRequest';
+import { CompanyUserRequest } from '../auth/models/CompanyUserRequest';
 import { CompanyService } from './company.service';
 import { CreateCompanyDto } from './dto/create-company.dto';
 import { UpdateCompanyDto } from './dto/update-company.dto';
@@ -33,7 +33,7 @@ export class CompanyController {
   }
 
   @Get('/products')
-  products(@Req() req: UserRequest) {
+  products(@Req() req: CompanyUserRequest) {
     return this.companyService.findProducts(req.user.uuid);
   }
 

@@ -10,11 +10,15 @@ import { CreateCompanyDto } from '../company/dto/create-company.dto';
 import { EmailService } from '../email/email.service';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { ConfigService } from 'src/config/config.service';
+import { CustomerService } from '../customer/customer.service';
+import { CreateCustomerDto } from '../customer/dto/create-customer.dto';
+import { Customer } from '../customer/entities/customer.entity';
 
 @Injectable()
 export class AuthService {
   constructor(
     private readonly companyService: CompanyService,
+    private readonly customerService: CustomerService,
     private readonly jwtService: JwtService,
     private readonly emailService: EmailService,
     private readonly prisma: PrismaService,
@@ -56,17 +60,18 @@ export class AuthService {
   async registerCompany(createCompanyDto: CreateCompanyDto) {
     const company = await this.companyService.create({
       ...createCompanyDto,
+      type: 'COMPANY',
     });
 
     return company;
   }
 
   // Customer
-  async loginCustomer(company: Company): Promise<CompanyToken> {
+  async loginCustomer(customer: Customer): Promise<CompanyToken> {
     const payload: CompanyPayload = {
-      sub: company.uuid,
-      email: company.email,
-      name: company.name,
+      sub: customer.uuid,
+      email: customer.email,
+      name: customer.name,
     };
 
     const jwtToken = this.jwtService.sign(payload);
@@ -76,9 +81,10 @@ export class AuthService {
     };
   }
 
-  async registerCustomer(createCompanyDto: CreateCompanyDto) {
-    const company = await this.companyService.create({
-      ...createCompanyDto,
+  async registerCustomer(createCustomerDto: CreateCustomerDto) {
+    const company = await this.customerService.create({
+      ...createCustomerDto,
+      type: 'CUSTOMER',
     });
 
     return company;

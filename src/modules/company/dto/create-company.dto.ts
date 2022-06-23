@@ -50,12 +50,12 @@ export class CreateCompanyDto {
   @Validate(DocumentValidation)
   document: string;
 
-  @IsString()
   type: Type;
 
   @IsString()
   @IsUrl()
-  logo: string;
+  @IsOptional()
+  logo?: string;
 
   @ApiProperty({
     description: 'Company address data',

@@ -50,12 +50,12 @@ export class CreateCustomerDto {
   @Validate(DocumentValidation)
   document: string;
 
-  @IsString()
   type: Type;
 
   @IsString()
   @IsUrl()
-  profile_pic: string;
+  @IsOptional()
+  profile_pic?: string;
 
   @ApiProperty({
     description: 'Customer address data',

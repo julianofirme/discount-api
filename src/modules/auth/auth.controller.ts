@@ -12,12 +12,14 @@ import * as bcrypt from 'bcryptjs';
 import * as moment from 'moment';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateCompanyDto } from '../company/dto/create-company.dto';
+import { CreateCustomerDto } from '../customer/dto/create-customer.dto';
 import { AuthService } from './auth.service';
 import { IsPublic } from './decorators/is-public.decorator';
 import { RecoveryDto } from './dto/recovery.dto';
 import { ResetPasswordDto } from './dto/reset-password.dto';
 import { LocalAuthGuard } from './guards/local-auth.guard';
-import { UserRequest } from './models/UserRequest';
+import { CompanyUserRequest } from './models/CompanyUserRequest';
+import { CustomerUserRequest } from './models/CustomerUserRequest';
 
 @Controller()
 export class AuthController {
@@ -30,7 +32,7 @@ export class AuthController {
   @Post('login/company')
   @HttpCode(HttpStatus.OK)
   @UseGuards(LocalAuthGuard)
-  loginCompany(@Request() req: UserRequest) {
+  loginCompany(@Request() req: CompanyUserRequest) {
     return this.authService.loginCompany(req.user);
   }
 
@@ -45,15 +47,15 @@ export class AuthController {
   @Post('login/customer')
   @HttpCode(HttpStatus.OK)
   @UseGuards(LocalAuthGuard)
-  login(@Request() req: UserRequest) {
+  login(@Request() req: CustomerUserRequest) {
     return this.authService.loginCustomer(req.user);
   }
 
   @IsPublic()
   @Post('register/customer')
   @HttpCode(HttpStatus.OK)
-  register(@Body() createCompanyDto: CreateCompanyDto) {
-    return this.authService.registerCustomer(createCompanyDto);
+  register(@Body() createCustomerDto: CreateCustomerDto) {
+    return this.authService.registerCustomer(createCustomerDto);
   }
 
   @IsPublic()

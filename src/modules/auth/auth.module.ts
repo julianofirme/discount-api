@@ -9,6 +9,7 @@ import { JwtStrategy } from './strategies/jwt.strategy';
 import { EmailModule } from '../email/email.module';
 import { ConfigModule } from 'src/config/config.module';
 import { PrismaModule } from 'src/prisma/prisma.module';
+import { CustomerModule } from '../customer/customer.module';
 
 config();
 @Module({
@@ -16,6 +17,7 @@ config();
     PrismaModule,
     ConfigModule,
     CompanyModule,
+    CustomerModule,
     EmailModule,
     JwtModule.register({
       secret: process.env.JWT_SECRET,

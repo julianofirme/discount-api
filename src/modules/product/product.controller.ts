@@ -11,14 +11,17 @@ import {
 import { ProductService } from './product.service';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
-import { UserRequest } from '../auth/models/UserRequest';
+import { CompanyUserRequest } from '../auth/models/CompanyUserRequest';
 
 @Controller('product')
 export class ProductController {
   constructor(private readonly productService: ProductService) {}
 
   @Post()
-  create(@Body() createProductDto: CreateProductDto, @Req() req: UserRequest) {
+  create(
+    @Body() createProductDto: CreateProductDto,
+    @Req() req: CompanyUserRequest,
+  ) {
     return this.productService.create(createProductDto, req.user.uuid);
   }
 

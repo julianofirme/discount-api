@@ -1,4 +1,4 @@
-import { Type } from '@nestjs/common';
+import { Type } from '@prisma/client';
 
 export class Company {
   uuid: string;
