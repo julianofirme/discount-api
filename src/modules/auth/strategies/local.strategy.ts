@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
+import { Type } from '@prisma/client';
 import { Strategy } from 'passport-local';
 import { AuthService } from '../auth.service';
 
@@ -10,6 +11,6 @@ export class LocalStrategy extends PassportStrategy(Strategy) {
   }
 
   validate(email: string, password: string) {
-    return this.authService.validateCompany(email, password);
+    return this.authService.validateUser(email, password);
   }
 }

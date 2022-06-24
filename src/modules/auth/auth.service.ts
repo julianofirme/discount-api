@@ -3,9 +3,9 @@ import { CompanyService } from '../company/company.service';
 import * as bcrypt from 'bcryptjs';
 import * as crypto from 'crypto';
 import { Company } from '../company/entities/company.entity';
-import { CompanyPayload } from './models/CompanyPayload';
+import { AuthPayload } from './models/AuthPayload';
 import { JwtService } from '@nestjs/jwt';
-import { CompanyToken } from './models/CompanyToken';
+import { AuthToken } from './models/AuthToken';
 import { CreateCompanyDto } from '../company/dto/create-company.dto';
 import { EmailService } from '../email/email.service';
 import { PrismaService } from 'src/prisma/prisma.service';
@@ -25,10 +25,11 @@ export class AuthService {
     private readonly configService: ConfigService,
   ) {}
 
-  async validateCompany(email: string, password: string) {
+  async validateUser(email: string, password: string) {
     const company = await this.companyService.findByEmail(email);
+    const customer = await this.customerService.findByEmail(email);
 
-    if (company) {
+    if (company && !customer) {
       const isPasswordValid = await bcrypt.compare(password, company.password);
 
       if (isPasswordValid) {
@@ -40,11 +41,24 @@ export class AuthService {
 
       throw new Error('Email ou senha incorretos.');
     }
+
+    if (!company && customer) {
+      const isPasswordValid = await bcrypt.compare(password, customer.password);
+
+      if (isPasswordValid) {
+        return {
+          ...customer,
+          password: undefined,
+        };
+      }
+
+      throw new Error('Email ou senha incorretos.');
+    }
   }
 
   // Company
-  async loginCompany(company: Company): Promise<CompanyToken> {
-    const payload: CompanyPayload = {
+  async loginCompany(company: Company): Promise<AuthToken> {
+    const payload: AuthPayload = {
       sub: company.uuid,
       email: company.email,
       name: company.name,
@@ -67,8 +81,8 @@ export class AuthService {
   }
 
   // Customer
-  async loginCustomer(customer: Customer): Promise<CompanyToken> {
-    const payload: CompanyPayload = {
+  async loginCustomer(customer: Customer): Promise<AuthToken> {
+    const payload: AuthPayload = {
       sub: customer.uuid,
       email: customer.email,
       name: customer.name,

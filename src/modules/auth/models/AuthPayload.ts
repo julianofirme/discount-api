@@ -1,4 +1,4 @@
-export interface CompanyPayload {
+export interface AuthPayload {
   sub: string;
   email: string;
   name: string;
