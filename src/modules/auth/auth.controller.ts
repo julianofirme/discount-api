@@ -17,7 +17,7 @@ import { AuthService } from './auth.service';
 import { IsPublic } from './decorators/is-public.decorator';
 import { RecoveryDto } from './dto/recovery.dto';
 import { ResetPasswordDto } from './dto/reset-password.dto';
-import { LocalAuthGuard } from './guards/local-auth.guard';
+import { LocalAuthGuard } from '../../common/guards/local-auth.guard';
 import { CompanyUserRequest } from './models/CompanyUserRequest';
 import { CustomerUserRequest } from './models/CustomerUserRequest';
 
