@@ -21,4 +21,5 @@ export class Customer {
   complement?: string;
 
   created_at: Date;
+  updated_at: Date;
 }

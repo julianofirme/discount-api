@@ -11,52 +11,53 @@ datasource db {
 }
 
 model Company {
-  uuid          String  @id @default(uuid())
-  name          String
-  email         String  @unique
-  password      String
-  document      String  @unique
-  type          Type
-  logo          String?
+  uuid     String  @id @default(uuid())
+  name     String
+  email    String  @unique
+  password String
+  document String  @unique
+  type     Type
+  logo     String?
 
   recovery_code String?
   recovery_date DateTime @default(now())
 
-  zipcode       String?
-  state         String?
-  city          String?
-  street        String?
-  number        String?
-  district      String?
-  complement    String?
+  zipcode    String?
+  state      String?
+  city       String?
+  street     String?
+  number     String?
+  district   String?
+  complement String?
 
-  created_at    DateTime  @default(now())
-  updated_at    DateTime  @default(now())
-  Product       Product[]
+  created_at DateTime  @default(now())
+  updated_at DateTime  @default(now())
+  Product    Product[]
+  Post       Post[]
 }
 
 model Customer {
-  uuid          String  @id @default(uuid())
-  name          String
-  email         String  @unique
-  password      String
-  document      String  @unique
-  type          Type
-  profile_pic   String?
+  uuid        String  @id @default(uuid())
+  name        String
+  email       String  @unique
+  password    String
+  document    String  @unique
+  type        Type
+  profile_pic String?
 
   recovery_code String?
   recovery_date DateTime @default(now())
 
-  zipcode       String?
-  state         String?
-  city          String?
-  street        String?
-  number        String?
-  district      String?
-  complement    String?
+  zipcode    String?
+  state      String?
+  city       String?
+  street     String?
+  number     String?
+  district   String?
+  complement String?
 
-  created_at    DateTime  @default(now())
-  updated_at    DateTime  @default(now())
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
 }
 
 model Product {
@@ -72,7 +73,21 @@ model Product {
   company      Company @relation(fields: [company_uuid], references: [uuid])
 
   created_at DateTime @default(now())
-  updated_at DateTime  @default(now())
+  updated_at DateTime @default(now())
+}
+
+model Post {
+  uuid        String @id @default(uuid())
+  content     String
+  author_name String
+  media_url   String?
+  likes       Int
+
+  company_uuid String
+  company      Company @relation(fields: [company_uuid], references: [uuid])
+
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
 }
 
 enum Type {

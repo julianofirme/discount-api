@@ -21,4 +21,5 @@ export class Company {
   complement?: string;
 
   created_at: Date;
+  updated_at: Date;
 }
