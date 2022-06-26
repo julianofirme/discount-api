@@ -53,6 +53,12 @@ export class CompanyService {
     });
   }
 
+  findByEmail(email: string) {
+    return this.prisma.company.findUnique({
+      where: { email },
+    });
+  }
+
   findProducts(uuid: string) {
     return this.prisma.product.findMany({
       where: {
@@ -61,9 +67,11 @@ export class CompanyService {
     });
   }
 
-  findByEmail(email: string) {
-    return this.prisma.company.findUnique({
-      where: { email },
+  findPosts(uuid: string) {
+    return this.prisma.post.findMany({
+      where: {
+        company_uuid: uuid,
+      },
     });
   }
 

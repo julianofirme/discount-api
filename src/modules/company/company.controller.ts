@@ -37,6 +37,11 @@ export class CompanyController {
     return this.companyService.findProducts(req.user.uuid);
   }
 
+  @Get('/posts')
+  posts(@Req() req: CompanyUserRequest) {
+    return this.companyService.findPosts(req.user.uuid);
+  }
+
   @Patch(':uuid')
   update(
     @Param('uuid') uuid: string,
