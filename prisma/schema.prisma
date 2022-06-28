@@ -56,8 +56,9 @@ model Customer {
   district   String?
   complement String?
 
-  created_at DateTime @default(now())
-  updated_at DateTime @default(now())
+  created_at DateTime    @default(now())
+  updated_at DateTime    @default(now())
+  PostLikes  PostLikes[]
 }
 
 model Product {
@@ -77,7 +78,7 @@ model Product {
 }
 
 model Post {
-  uuid        String @id @default(uuid())
+  uuid        String  @id @default(uuid())
   content     String
   author_name String
   media_url   String?
@@ -86,8 +87,20 @@ model Post {
   company_uuid String
   company      Company @relation(fields: [company_uuid], references: [uuid])
 
-  created_at DateTime @default(now())
-  updated_at DateTime @default(now())
+  created_at DateTime    @default(now())
+  updated_at DateTime    @default(now())
+  PostLikes  PostLikes[]
+}
+
+model PostLikes {
+  uuid String @id @default(uuid())
+
+  customer_uuid String
+  customer      Customer @relation(fields: [customer_uuid], references: [uuid])
+
+  post_uuid String
+  post      Post   @relation(fields: [post_uuid], references: [uuid])
+
 }
 
 enum Type {

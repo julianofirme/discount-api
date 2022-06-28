@@ -11,6 +11,7 @@ import { EmailModule } from './modules/email/email.module';
 import { ConfigModule as NestConfigModule } from '@nestjs/config';
 import { CustomerModule } from './modules/customer/customer.module';
 import { PostModule } from './modules/post/post.module';
+import { LikeModule } from './modules/like/like.module';
 import smtpConfig from './config/smtp.config';
 
 @Module({
@@ -25,6 +26,7 @@ import smtpConfig from './config/smtp.config';
     }),
     CustomerModule,
     PostModule,
+    LikeModule,
   ],
   controllers: [AppController],
   providers: [AppService, { provide: APP_GUARD, useClass: JwtAuthGuard }],
